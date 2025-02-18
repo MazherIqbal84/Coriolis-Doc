@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; Coriolis 2.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=43985434"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As the sources are being released, the binary packaging is dropped.
+You may still find (very) old versions here: <a class="reference external" href="http://asim.lip6.fr/pub/coriolis/2.0">http://asim.lip6.fr/pub/coriolis/2.0</a> .</p>
+</div>
+<p>In a nutshell, building source consists in pulling the <a href="#id2"><span class="problematic" id="id3">|git|</span></a> repository then
+running the <a href="#id4"><span class="problematic" id="id5">|ccb|</span></a> installer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The documentation is already generated and commited in the <a href="#id6"><span class="problematic" id="id7">|git|</span></a> tree.
+You may not install the additional prerequisites for the documentation.
+By default the documentation is not generated, just installed by <a href="#id8"><span class="problematic" id="id9">|ccb|</span></a>.
+If you really want to re-generate it, add the <code class="docutils literal notranslate"><span class="pre">--doc</span></code> flag to <a href="#id10"><span class="problematic" id="id11">|ccb|</span></a>.</p>
+</div>
+<p>Main building prerequisites:</p>
+<ul class="simple">
+<li><p>cmake</p></li>
+<li><p>C++11-capable compiler</p></li>
+<li><p>BFD library (provided through <code class="docutils literal notranslate"><span class="pre">binutils</span></code>).</p></li>
+<li><p><a href="#id142"><span class="problematic" id="id143">RapidJSON_</span></a></p></li>
+<li><p>python2.7</p></li>
+<li><p>boost</p></li>
+<li><p>libxml2</p></li>
+<li><p>bzip2</p></li>
+<li><p>yacc &amp; lex</p></li>
+<li><p>Qt 4 or Qt 5</p></li>
+<li><p>PyQt 4 or PyQt 5</p></li>
+<li><p>Qwt 6</p></li>
+</ul>
+<p>Building documentation prerequisites:</p>
+<ul class="simple">
+<li><p>doxygen</p></li>
+<li><p>latex</p></li>
+<li><p>python-docutils (for reStructuredText)</p></li>
+<li><p>pelican</p></li>
+</ul>
+<p>The following libraries get directly bundled with <a href="#id12"><span class="problematic" id="id13">|Coriolis|</span></a>:</p>
+<ul class="simple">
+<li><p>LEF/DEF (from <a href="#id144"><span class="problematic" id="id145">Si2_</span></a>)</p></li>
+<li><p>FLUTE (from <a class="reference external" href="http://home.eng.iastate.edu/~cnchu/flute.html">Chris C. N. Chu</a>)</p></li>
+</ul>
+<p>For other distributions, refer to their own packaging system.</p>
+<section id="fixed-directory-tree">
+<h2>Fixed Directory Tree<a class="headerlink" href="#fixed-directory-tree" title="Permalink to this heading">¶</a></h2>
+<p>In order to simplify the work of the <a href="#id14"><span class="problematic" id="id15">|ccb|</span></a> installer, the source, build
+and installation tree is fixed. To successfully compile <a href="#id16"><span class="problematic" id="id17">|Coriolis|</span></a> you must
+follow it exactly. The tree is relative to the home directory of the user
+building it (note <span class="fboxtt">~/</span> or <span class="fboxtt">$HOME/</span>). Only the source
+directory needs to be manually created by the user, all others will be
+automatically created either by <a href="#id18"><span class="problematic" id="id19">|ccb|</span></a> or the build system.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>Sources</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Sources root</div>
+<div class="line"><strong>under git</strong></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">~/coriolis-2.x/src</div>
+<div class="line">~/coriolis-2.x/src/coriolis</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Architecture Dependant Build</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Linux, SL 7, 64b</div>
+<div class="line">Linux, SL 6, 32b</div>
+<div class="line">Linux, SL 6, 64b</div>
+<div class="line">Linux, Fedora, 64b</div>
+<div class="line">Linux, Fedora, 32b</div>
+<div class="line">FreeBSD 8, 32b</div>
+<div class="line">FreeBSD 8, 64b</div>
+<div class="line">Windows 7, 32b</div>
+<div class="line">Windows 7, 64b</div>
+<div class="line">Windows 8.x, 32b</div>
+<div class="line">Windows 8.x, 64b</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">~/coriolis-2.x/Linux.el7_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.slsoc6x/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.slsoc6x_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.fc_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.fc/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/FreeBSD.8x.i386/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/FreeBSD.8x.amd64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W7/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W7_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W8/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W8_64/Release.Shared/build/&lt;tool&gt;</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Architecture Dependant Install</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Linux, SL 6, 32b</p></td>
+<td><p>~/coriolis-2.x/Linux.slsoc6x/Release.Shared/install/</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>FHS Compliant Structure under Install</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Binaries</div>
+<div class="line">Libraries (Python)</div>
+<div class="line">Include by tool</div>
+<div class="line">Configuration files</div>
+<div class="line">Doc, by tool</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">…/install/bin</div>
+<div class="line">…/install/lib</div>
+<div class="line">…/install/include/coriolis2/&lt;project&gt;/&lt;tool&gt;</div>
+<div class="line">…/install/etc/coriolis2/</div>
+<div class="line">…/install/share/doc/coriolis2/en/html/&lt;tool&gt;</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Alternate build types:</em> the <code class="docutils literal notranslate"><span class="pre">Release.Shared</span></code> means an optimized build
+with shared libraries. But there are also available <code class="docutils literal notranslate"><span class="pre">Static</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Shared</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Debug</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Release</span></code> and any combination of them.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Static</span></code> does not work because I don’t know yet to mix statically linked binaries
+and Python modules (which must be dynamic).</p>
+</div>
+</section>
+<section id="building-coriolis">
+<h2>Building Coriolis<a class="headerlink" href="#building-coriolis" title="Permalink to this heading">¶</a></h2>
+<section id="the-actively-developed-branch">
+<h3>The actively developed branch<a class="headerlink" href="#the-actively-developed-branch" title="Permalink to this heading">¶</a></h3>
+<p>The <strong>devel_anabatic</strong> branch is now closed and we go back to a more classical
+scheme where <strong>master</strong> is the stable version and <strong>devel</strong> the development one.</p>
+<p>The <a href="#id20"><span class="problematic" id="id21">|Coriolis|</span></a> <a href="#id22"><span class="problematic" id="id23">|git|</span></a> repository is <a class="reference external" href="https://github.com/lip6/coriolis.git">https://github.com/lip6/coriolis.git</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Again, the <strong>devel_anabatic</strong> branch is now closed. Please revert to <strong>devel</strong>
+or <strong>master</strong>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As it is now possible to mix <a href="#id24"><span class="problematic" id="id25">|PyQt|</span></a> widget with <a href="#id26"><span class="problematic" id="id27">|Coriolis|</span></a> ones, it is simpler
+for us to revert to <a href="#id28"><span class="problematic" id="id29">|Qt|</span></a> 4 only. Our reference <a href="#id30"><span class="problematic" id="id31">|OS|</span></a> being <a href="#id32"><span class="problematic" id="id33">|RHEL|</span></a> 7, there is no
+compatible <a href="#id34"><span class="problematic" id="id35">|PyQt5|</span></a> build compatible with their <a href="#id36"><span class="problematic" id="id37">|Qt|</span></a> 5 version (we fall short of
+one minor, they provides <a href="#id38"><span class="problematic" id="id39">|Qt|</span></a> 5.9 were we need at least <a href="#id40"><span class="problematic" id="id41">|Qt|</span></a> 5.10).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under <a href="#id42"><span class="problematic" id="id43">|RHEL|</span></a> 7 or clones, they upgraded their version of <a href="#id44"><span class="problematic" id="id45">|Qt|</span></a> 4 (from 4.6 to 4.8)
+so the <em>diagonal line</em> bug no longer occurs. So we can safely use the default
+system <a href="#id46"><span class="problematic" id="id47">|Qt|</span></a> again.</p>
+</div>
+</section>
+<section id="installing-on-redhat-or-compatible-distributions">
+<h3>Installing on <a href="#id48"><span class="problematic" id="id49">|RedHat|</span></a> or compatible distributions<a class="headerlink" href="#installing-on-redhat-or-compatible-distributions" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Install or check that the required prerequisites are installed :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>gcc-c++<span class="w"> </span>libstdc++-devel<span class="w">  </span><span class="se">\</span>
+<span class="w">                              </span>binutils-devel<span class="w">                                </span><span class="se">\</span>
+<span class="w">                              </span>boost-devel<span class="w"> </span>boost-python<span class="w"> </span>boost-filesystem<span class="w">     </span><span class="se">\</span>
+<span class="w">                              </span>boost-regex<span class="w">  </span>boost-wave<span class="w">                       </span><span class="se">\</span>
+<span class="w">                              </span>python-devel<span class="w"> </span>libxml2-devel<span class="w"> </span>bzip2-devel<span class="w">        </span><span class="se">\</span>
+<span class="w">                              </span>qt-devel
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>The packages <code class="docutils literal notranslate"><span class="pre">qwt</span></code> and <code class="docutils literal notranslate"><span class="pre">qwt-devel</span></code> are not provided by any standard repository
+(like <a href="#id50"><span class="problematic" id="id51">|EPEL|</span></a>). You may download them from the
+<a class="reference external" href="https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/letter_q.group.html">LIP6 Addons Repository</a>
+Then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>qwt-6.1.2-4.fc23.x86_64.rpm<span class="w">        </span><span class="se">\</span>
+<span class="w">                                   </span>qwt-devel-6.1.2-4.fc23.x86_64.rpm<span class="w">  </span><span class="c1"># Qwt for Qt 4.</span>
+</pre></div>
+</div>
+<p>You may also install them directly (whithout an intermediate download):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>http://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/RPMS/qwt-6.1.2-4.fc23.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>http://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/RPMS/qwt-devel-6.1.2-4.fc23.x86_64.rpm
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>Install the unpackaged prerequisites. Currently, only <a href="#id146"><span class="problematic" id="id147">RapidJSON_</span></a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src/support
+dummy@lepka:support&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src/support
+dummy@lepka:support&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>http://github.com/miloyip/rapidjson
+</pre></div>
+</div>
+</li>
+<li><p>Create the source directory and pull the <a href="#id52"><span class="problematic" id="id53">|git|</span></a> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/coriolis.git
+</pre></div>
+</div>
+</li>
+<li><p>Build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>devel
+dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pre-generated documentation will get installed by the previous command.
+Only if you did made modifications to it you need to regenerate it with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--doc<span class="w"> </span>--make<span class="o">=</span><span class="s2">&quot;-j1 install&quot;</span>
+</pre></div>
+</div>
+<p>We need to perform a separate installation of the documentation because it
+does not support to be generated with a parallel build. So we compile &amp; install in a first
+stage in <code class="docutils literal notranslate"><span class="pre">-j4</span></code> (or whatever) then we generate the documentation in <code class="docutils literal notranslate"><span class="pre">-j1</span></code></p>
+</div>
+<p>Under <a href="#id54"><span class="problematic" id="id55">|RHEL6|</span></a> or clones, you must build using the <a href="#id56"><span class="problematic" id="id57">|devtoolset|</span></a>, the version is to
+be given as argument:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--devtoolset<span class="o">=</span><span class="m">8</span><span class="w"> </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+<p>If you want to use Qt 5 instead of Qt 4, modify the previous steps as follows:</p>
+<ul>
+<li><p>At <strong>step 1</strong>, do not install the <a href="#id58"><span class="problematic" id="id59">|QT|</span></a> 4 related development package (<code class="docutils literal notranslate"><span class="pre">qt4-devel</span></code>),
+but instead:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qt5-qtbase-devel<span class="w"> </span>qt5-qtsvg-devel<span class="w">              </span><span class="c1"># Qt 5.</span>
+</pre></div>
+</div>
+<p>The package <code class="docutils literal notranslate"><span class="pre">qwt-qt5-devel</span></code> and it’s dependency <code class="docutils literal notranslate"><span class="pre">qwt-qt5</span></code> are not provided
+by any standard repository (like <a href="#id60"><span class="problematic" id="id61">|EPEL|</span></a>). You may download them from the
+<a class="reference external" href="https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/letter_q.group.html">LIP6 Addons Repository</a>
+Then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>qwt-qt5-6.1.2-4.fc23.x86_64.rpm<span class="w">        </span><span class="se">\</span>
+<span class="w">                                   </span>qwt-qt5-devel-6.1.2-4.fc23.x86_64.rpm<span class="w">  </span><span class="c1"># Qwt for Qt 5.</span>
+</pre></div>
+</div>
+</li>
+<li><p>At <strong>step 4</strong>, add a <code class="docutils literal notranslate"><span class="pre">--qt5</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">ccb.py</span></code> command line.</p></li>
+<li><p>The <a href="#id62"><span class="problematic" id="id63">|Python|</span></a> scripts that make use of <a href="#id64"><span class="problematic" id="id65">|PyQt|</span></a> in <code class="docutils literal notranslate"><span class="pre">crlcore</span></code> and <code class="docutils literal notranslate"><span class="pre">cumulus</span></code> must be
+edited to import <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> instead of <code class="docutils literal notranslate"><span class="pre">PtQt4</span></code> (should find a way to automatically
+switch between the two of them).</p></li>
+</ul>
+<p>The complete list of <a href="#id66"><span class="problematic" id="id67">|ccb|</span></a> functionalities can be accessed with the <code class="docutils literal notranslate"><span class="pre">--help</span></code> argument.
+It also may be run in graphical mode (<code class="docutils literal notranslate"><span class="pre">--gui</span></code>).</p>
+</section>
+<section id="building-a-debug-enabled-version">
+<h3>Building a Debug Enabled Version<a class="headerlink" href="#building-a-debug-enabled-version" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Release.Shared</span></code> default version of the <a href="#id68"><span class="problematic" id="id69">|Coriolis|</span></a> is built stripped of symbols
+and optimized so that it makes analysing a core dump after a crash difficult. In the
+(unlikely) case of a crash, you may want to build, alongside the optimized version,
+a debug one which allows forensic examination by <a href="#id70"><span class="problematic" id="id71">|gdb|</span></a> (or <a href="#id72"><span class="problematic" id="id73">|valgrind|</span></a> or whatever).</p>
+<p>Run again <code class="docutils literal notranslate"><span class="pre">ccb.py</span></code>, adding the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> argument:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span><span class="w"> </span>--debug
+</pre></div>
+</div>
+<p>As <a href="#id74"><span class="problematic" id="id75">|cgt|</span></a> is a <a href="#id76"><span class="problematic" id="id77">|Python|</span></a> script, the right command to run <a href="#id78"><span class="problematic" id="id79">|gdb|</span></a> is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:work&gt;<span class="w"> </span>gdb<span class="w"> </span>python<span class="w"> </span>core.XXXX
+</pre></div>
+</div>
+<p><a href="#id80"><span class="problematic" id="id81">|newpage|</span></a></p>
+</section>
+<section id="installing-on-debian-9-ubuntu-18-or-compatible-distributions">
+<h3>Installing on <a href="#id82"><span class="problematic" id="id83">|Debian|</span></a> 9, <a href="#id84"><span class="problematic" id="id85">|Ubuntu|</span></a> 18 or compatible distributions<a class="headerlink" href="#installing-on-debian-9-ubuntu-18-or-compatible-distributions" title="Permalink to this heading">¶</a></h3>
+<p>First, install or check that the required prerequisites are installed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>binutils-dev<span class="w">                     </span><span class="se">\</span>
+<span class="w">                                       </span>git<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>gcc<span class="w"> </span>python-dev<span class="w">              </span><span class="se">\</span>
+<span class="w">                                       </span>libboost-all-dev<span class="w"> </span>libboost-python-dev<span class="w">             </span><span class="se">\</span>
+<span class="w">                                       </span>zlib1g-dev<span class="w"> </span>libxml2-dev<span class="w"> </span>rapidjson-dev<span class="w"> </span>libbz2-dev
+</pre></div>
+</div>
+<p>To use with Qt 4:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qt4-dev-tools<span class="w"> </span>libqwt-dev<span class="w"> </span>python-qt4
+</pre></div>
+</div>
+<p>To use with Qt 5:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qtbase5-dev<span class="w"> </span>libqt5svg5-dev<span class="w"> </span>libqwt-qt5-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">                                       </span>python-pyqt5
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Do not install both versions of Qwt</strong> (for Qt 4 and Qt 5),
+this will confuse the installer and end up with a non functional software
+(it uses the headers from one Qt and libraries from the other version).</p>
+</div>
+<p>Second step is to create the source directory and pull the <a href="#id86"><span class="problematic" id="id87">|git|</span></a> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/coriolis.git
+</pre></div>
+</div>
+<p>Third and final step, build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>devel
+dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="additionnal-requirement-under-macos">
+<h3>Additionnal Requirement under <a href="#id88"><span class="problematic" id="id89">|MacOS|</span></a><a class="headerlink" href="#additionnal-requirement-under-macos" title="Permalink to this heading">¶</a></h3>
+<p><a href="#id90"><span class="problematic" id="id91">|Coriolis|</span></a> makes use of the <span class="cb">boost::python</span> module, but the <a href="#id92"><span class="problematic" id="id93">|macports|</span></a> <a href="#id94"><span class="problematic" id="id95">|boost|</span></a>
+seems unable to work with the <a href="#id96"><span class="problematic" id="id97">|Python|</span></a> bundled with <a href="#id98"><span class="problematic" id="id99">|MacOS|</span></a>. So you have to install
+both of them from <a href="#id100"><span class="problematic" id="id101">|macports|</span></a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@macos:~&gt;<span class="w"> </span>port<span class="w"> </span>install<span class="w"> </span>boost<span class="w"> </span>+python27
+dummy@macos:~&gt;<span class="w"> </span>port<span class="w"> </span><span class="k">select</span><span class="w"> </span>python<span class="w"> </span>python27
+dummy@macos:-&gt;<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DYLD_FRAMEWORK_PATH</span><span class="o">=</span>/opt/local/Library/Frameworks
+</pre></div>
+</div>
+<p>The last two lines tell <a href="#id102"><span class="problematic" id="id103">|MacOS|</span></a> to use the <a href="#id104"><span class="problematic" id="id105">|Python|</span></a> from <a href="#id106"><span class="problematic" id="id107">|macports|</span></a> and <em>not</em> from
+the system.</p>
+<p>Then proceed with the generic install instructions.</p>
+</section>
+</section>
+<section id="coriolis-docker">
+<h2><a href="#id108"><span class="problematic" id="id109">|Coriolis|</span></a> &amp; Docker<a class="headerlink" href="#coriolis-docker" title="Permalink to this heading">¶</a></h2>
+<p>Under <code class="docutils literal notranslate"><span class="pre">bootstrap/docker/</span></code> scripts and configuration files are provided that
+allow to rebuild <a href="#id110"><span class="problematic" id="id111">|Alliance|</span></a> and <a href="#id112"><span class="problematic" id="id113">|Coriolis|</span></a> and perform the regression tests
+of <code class="docutils literal notranslate"><span class="pre">alliance-check-toolkit</span></code>. You may have a look at the <code class="docutils literal notranslate"><span class="pre">Dockerfile.system</span></code>
+configuration file to see exactly how to setup a vanilla system to build
+<a href="#id114"><span class="problematic" id="id115">|Coriolis|</span></a>.</p>
+<p>To run the docker tests, call the <code class="docutils literal notranslate"><span class="pre">dockerManage.sh</span></code> scripts with the relevant
+arguments:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-bS<span class="w">  </span><span class="c1"># build both system &amp; coriolis images.</span>
+ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-r<span class="w">   </span><span class="c1"># compile &amp; check coriolis.</span>
+ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-C<span class="w">   </span><span class="c1"># clear the images.</span>
+</pre></div>
+</div>
+</section>
+<section id="packaging-coriolis">
+<h2>Packaging Coriolis<a class="headerlink" href="#packaging-coriolis" title="Permalink to this heading">¶</a></h2>
+<p>Packager should not use <a href="#id116"><span class="problematic" id="id117">|ccb|</span></a>, instead <code class="docutils literal notranslate"><span class="pre">bootstrap/Makefile.package</span></code> is provided
+to emulate a top-level <code class="docutils literal notranslate"><span class="pre">autotool</span></code> makefile. Just copy it in the root of the
+<a href="#id118"><span class="problematic" id="id119">|Coriolis|</span></a> git repository (<code class="docutils literal notranslate"><span class="pre">~/corriolis-2.x/src/coriolis/</span></code>) and build.</p>
+<p>Sligthly outdated packaging configuration files can also be found under <code class="docutils literal notranslate"><span class="pre">bootstrap/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap/coriolis2.spec.in</span></code> for <a href="#id120"><span class="problematic" id="id121">|rpm|</span></a> based distributions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap/debian</span></code> for <a href="#id122"><span class="problematic" id="id123">|Debian|</span></a> based distributions.</p></li>
+</ul>
+</section>
+<section id="hooking-up-into-alliance">
+<h2>Hooking up into <a href="#id124"><span class="problematic" id="id125">|Alliance|</span></a><a class="headerlink" href="#hooking-up-into-alliance" title="Permalink to this heading">¶</a></h2>
+<p><a href="#id126"><span class="problematic" id="id127">|Coriolis|</span></a> relies on <a href="#id128"><span class="problematic" id="id129">|Alliance|</span></a> for the cell libraries. So after installing or
+packaging, you must configure it so that it can found those libraries.</p>
+<p>The easiest way is to setup the <a href="#id130"><span class="problematic" id="id131">|Alliance|</span></a> environment (i.e. sourcing
+<code class="docutils literal notranslate"><span class="pre">.../etc/profile.d/alc_env.{sh,csh}</span></code>) <strong>before</strong> setting up <a href="#id132"><span class="problematic" id="id133">|Coriolis|</span></a> environment
+(see the next section). To understand how <a href="#id134"><span class="problematic" id="id135">|Coriolis|</span></a> find/setup <a href="#id136"><span class="problematic" id="id137">|Alliance|</span></a> you may
+have look to the <cite>Alliance Helper</cite>.</p>
+</section>
+<section id="setting-up-the-environment-coriolisenv-py">
+<h2>Setting up the Environment (coriolisEnv.py)<a class="headerlink" href="#setting-up-the-environment-coriolisenv-py" title="Permalink to this heading">¶</a></h2>
+<p>To simplify the tedious task of configuring your environment, a helper is provided
+in the <code class="docutils literal notranslate"><span class="pre">bootstrap</span></code> source directory (also installed in the directory
+<code class="docutils literal notranslate"><span class="pre">.../install/etc/coriolis2/</span></code>) :</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py
+</pre></div>
+</div>
+<p>Use it like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="sb">`</span>~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py<span class="sb">`</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Do not call that script in your environement initialisation.</strong>
+When used under <a href="#id138"><span class="problematic" id="id139">|RHEL6|</span></a> or clones, it needs to be run in the <a href="#id140"><span class="problematic" id="id141">|devtoolset|</span></a>
+environement. The script then launch a new shell, which may cause an
+infinite loop if it’s called again in, say <span class="cb">~/.bashrc</span>.</p>
+<p>Instead you may want to create an alias:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">c2r</span><span class="o">=</span><span class="s1">&#39;eval &quot;`~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py`&quot;&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Coriolis</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html">Abstract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#credits-license">Credits &amp; License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#complete-design-flow-examples">Complete Design Flow &amp; Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#cgt-the-graphical-interface">CGT - The Graphical Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hurricane/hurricane.html">Hurricane</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Jean-Paul Chaput & Al..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/pages/users-guide_0/Installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Abstract &#8212; Coriolis 2.x documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=43985434"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p></p>
+<nav class="contents" id="contents" role="doc-toc">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#abstract" id="id12">Abstract</a></p></li>
+<li><p><a class="reference internal" href="#credits-license" id="id13">Credits &amp; License</a></p></li>
+<li><p><a class="reference internal" href="#complete-design-flow-examples" id="id14">Complete Design Flow &amp; Examples</a></p></li>
+<li><p><a class="reference internal" href="#installation" id="id15">Installation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fixed-directory-tree" id="id16">Fixed Directory Tree</a></p></li>
+<li><p><a class="reference internal" href="#building-coriolis" id="id17">Building Coriolis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-actively-developed-branch" id="id18">The actively developed branch</a></p></li>
+<li><p><a class="reference internal" href="#installing-on-redhat-or-compatible-distributions" id="id19">Installing on <span class="sc">RedHat</span> or compatible distributions</a></p></li>
+<li><p><a class="reference internal" href="#building-a-debug-enabled-version" id="id20">Building a Debug Enabled Version</a></p></li>
+<li><p><a class="reference internal" href="#installing-on-debian-9-ubuntu-18-or-compatible-distributions" id="id21">Installing on <span class="sc">Debian</span> 9, <span class="sc">Ubuntu</span> 18 or compatible distributions</a></p></li>
+<li><p><a class="reference internal" href="#additionnal-requirement-under-macos" id="id22">Additionnal Requirement under <span class="sc">MacOS</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#coriolis-docker" id="id23"><span class="sc">Coriolis</span> &amp; Docker</a></p></li>
+<li><p><a class="reference internal" href="#packaging-coriolis" id="id24">Packaging Coriolis</a></p></li>
+<li><p><a class="reference internal" href="#hooking-up-into-alliance" id="id25">Hooking up into <span class="sc">Alliance</span></a></p></li>
+<li><p><a class="reference internal" href="#setting-up-the-environment-coriolisenv-py" id="id26">Setting up the Environment (coriolisEnv.py)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cgt-the-graphical-interface" id="id27">CGT - The Graphical Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#viewer-tools" id="id28">Viewer &amp; Tools</a></p>
+<ul>
+<li><p><a class="reference internal" href="#stratus-netlist-capture" id="id29"><span class="sc">Stratus</span> Netlist Capture</a></p></li>
+<li><p><a class="reference internal" href="#the-hurricane-data-base" id="id30">The <span class="sc">Hurricane</span> Data-Base</a></p></li>
+<li><p><a class="reference internal" href="#synthetizing-and-loading-a-design" id="id31">Synthetizing and loading a design</a></p>
+<ul>
+<li><p><a class="reference internal" href="#synthesis-under-yosys" id="id32">Synthesis under Yosys</a></p></li>
+<li><p><a class="reference internal" href="#synthesis-under-alliance" id="id33">Synthesis under Alliance</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#etesian-placer" id="id34">Etesian – Placer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#etesian-configuration-parameters" id="id35">Etesian Configuration Parameters</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#katana-global-router" id="id36">Katana – Global Router</a></p></li>
+<li><p><a class="reference internal" href="#katana-detailed-router" id="id37">Katana – Detailed Router</a></p>
+<ul>
+<li><p><a class="reference internal" href="#katana-configuration-parameters" id="id38">Katana Configuration Parameters</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#executing-python-scripts-in-cgt" id="id39">Executing Python Scripts in Cgt</a></p></li>
+<li><p><a class="reference internal" href="#printing-snapshots" id="id40">Printing &amp; Snapshots</a></p></li>
+<li><p><a class="reference internal" href="#memento-of-shortcuts-in-graphic-mode" id="id41">Memento of Shortcuts in Graphic Mode</a></p></li>
+<li><p><a class="reference internal" href="#cgt-command-line-options" id="id42">Cgt Command Line Options</a></p></li>
+<li><p><a class="reference internal" href="#miscellaneous-settings" id="id43">Miscellaneous Settings</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-controller" id="id44">The Controller</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-look-tab" id="id45">The Look Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-filter-tab" id="id46">The Filter Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-layers-go-tab" id="id47">The Layers&amp;Go Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-netlist-tab" id="id48">The Netlist Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-selection-tab" id="id49">The Selection Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-inspector-tab" id="id50">The Inspector Tab</a></p></li>
+<li><p><a class="reference internal" href="#the-settings-tab" id="id51">The Settings Tab</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p></p>
+<section id="abstract">
+<h1><a class="toc-backref" href="#id12" role="doc-backlink">Abstract</a><a class="headerlink" href="#abstract" title="Permalink to this heading">¶</a></h1>
+<p><span class="sc">Coriolis</span> is a set of tools for <span class="sc">vlsi</span> backend. It’s main features are :</p>
+<ul class="simple">
+<li><p>An analytic placer <span class="sc">Etesian</span> (based on <span class="sc">Coloquinte</span>).</p></li>
+<li><p>A router <span class="sc">Katana</span> for digital designs. An extension toward mixed design
+is currently under development.</p></li>
+<li><p><span class="sc">Python</span> fast prototyping capabilities and layout procedural description.</p></li>
+</ul>
+<p><span class="sc">Coriolis</span> is a replacement of the <span class="sc">Alliance</span> place and route tools.</p>
+</section>
+<section id="credits-license">
+<h1><a class="toc-backref" href="#id13" role="doc-backlink">Credits &amp; License</a><a class="headerlink" href="#credits-license" title="Permalink to this heading">¶</a></h1>
+<table style="border: none; width: 80%; align: center; margin-left: auto; margin-right: auto; font-size: 110%">
+  <tr>
+    <td style="text-align: left" ><span><span class="sc">Hurricane</span></span></td>
+    <td style="text-align: right"><span>Rémy <span class="sc">Escassut</span> &amp;
+                                        Christian <span class="sc">Masson</span></span</td>
+  </tr>
+  <tr>
+    <td style="text-align: left" ><span class="left"><span class="sc">Etesian</span></span></td>
+    <td style="text-align: right"><span class="right">Gabriel <span class="sc">Gouvine</span></span></td>
+  </tr>
+  <tr>
+    <td style="text-align: left" ><span class="left"><span class="sc">Stratus</span></span></td>
+    <td style="text-align: right"><span class="right">Sophie <span class="sc">Belloeil</span></span></td>
+  </tr>
+  <tr>
+    <td style="text-align: left" ><span class="left"><span class="sc">Katana</span> (global)</span></td>
+    <td style="text-align: right"><span class="right">Damien <span class="sc">Dupuis</span></span></td>
+  </tr>
+  <tr>
+    <td style="text-align: left" ><span class="left"><span class="sc">Katana</span> (detailed),
+                                       <span class="sc">Unicorn</span></span></span></td>
+    <td style="text-align: right"><span class="right">Jean-Paul <span class="sc">Chaput</span></span></td>
+  </tr>
+</table><p>   <span class="raw-html"><br class="medskip"/></span></p>
+<p>The <span class="sc">Hurricane</span> data-base is copyright© <span class="sc">Bull</span> 2000-2019 and is
+released under the terms of the <span class="sc">lgpl</span> license. All other tools are
+copyright© <span class="sc">upmc</span> 2008-2018, <span class="sc">Sorbonne Université</span> 2018-2019
+and released under the <span class="sc">gpl</span> license.</p>
+<p>Others important contributors to <span class="sc">Coriolis</span> are Christophe <span class="sc">Alexandre</span>,
+Roselyne <span class="sc">Chotin</span>, Hugo <span class="sc">Clement</span>, Marek <span class="sc">Sroka</span> and Wu <span class="sc">Yifei</span>.</p>
+<p>The <span class="sc">Katana</span> router makes use of the <span class="sc">Flute</span> software, which is
+copyright© Chris C. N. <span class="sc">Chu</span> from the Iowa State University
+(<a class="reference external" href="http://home.eng.iastate.edu/~cnchu/">http://home.eng.iastate.edu/~cnchu/</a>).</p>
+<p></p>
+</section>
+<section id="complete-design-flow-examples">
+<h1><a class="toc-backref" href="#id14" role="doc-backlink">Complete Design Flow &amp; Examples</a><a class="headerlink" href="#complete-design-flow-examples" title="Permalink to this heading">¶</a></h1>
+<p>While <span class="sc">Coriolis</span> can be used stand-alone, it is in fact part of a more complete
+design flow build upon <span class="sc">Yosys</span> and <span class="sc">Alliance</span>. In addition, a set of demos and
+examples are supplied in the repository <code class="docutils literal notranslate"><span class="pre">alliance-check-toolkit</span></code>.</p>
+<ul>
+<li><p><span class="sc">Yosys</span> : <a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+<p>An <span class="cb">rpm</span> packaged version is available here:</p>
+<p><a class="reference external" href="https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/yosys.html">https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/yosys.html</a></p>
+</li>
+<li><p>Alliance : <a class="reference external" href="https://www-soc.lip6.fr/equipe-cian/logiciels/alliance/">https://www-soc.lip6.fr/equipe-cian/logiciels/alliance/</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alliance-check-toolkit</span></code> <span class="cb">git</span> repository:</p>
+<p><a class="reference external" href="https://www-soc.lip6.fr/git/alliance-check-toolkit.git/">https://www-soc.lip6.fr/git/alliance-check-toolkit.git/</a></p>
+</li>
+</ul>
+</section>
+<section id="installation">
+<h1><a class="toc-backref" href="#id15" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As the sources are being released, the binary packaging is dropped.
+You may still find (very) old versions here: <a class="reference external" href="http://asim.lip6.fr/pub/coriolis/2.0">http://asim.lip6.fr/pub/coriolis/2.0</a> .</p>
+</div>
+<p>In a nutshell, building source consists in pulling the <span class="cb">git</span> repository then
+running the <span class="cb">ccb</span> installer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The documentation is already generated and commited in the <span class="cb">git</span> tree.
+You may not install the additional prerequisites for the documentation.
+By default the documentation is not generated, just installed by <span class="cb">ccb</span>.
+If you really want to re-generate it, add the <code class="docutils literal notranslate"><span class="pre">--doc</span></code> flag to <span class="cb">ccb</span>.</p>
+</div>
+<p>Main building prerequisites:</p>
+<ul class="simple">
+<li><p>cmake</p></li>
+<li><p>C++11-capable compiler</p></li>
+<li><p>BFD library (provided through <code class="docutils literal notranslate"><span class="pre">binutils</span></code>).</p></li>
+<li><p><a class="reference external" href="http://miloyip.github.io/rapidjson/">RapidJSON</a></p></li>
+<li><p>python2.7</p></li>
+<li><p>boost</p></li>
+<li><p>libxml2</p></li>
+<li><p>bzip2</p></li>
+<li><p>yacc &amp; lex</p></li>
+<li><p>Qt 4 or Qt 5</p></li>
+<li><p>PyQt 4 or PyQt 5</p></li>
+<li><p>Qwt 6</p></li>
+</ul>
+<p>Building documentation prerequisites:</p>
+<ul class="simple">
+<li><p>doxygen</p></li>
+<li><p>latex</p></li>
+<li><p>python-docutils (for reStructuredText)</p></li>
+<li><p>pelican</p></li>
+</ul>
+<p>The following libraries get directly bundled with <span class="sc">Coriolis</span>:</p>
+<ul class="simple">
+<li><p>LEF/DEF (from <a class="reference external" href="http://www.si2.org/">Si2</a>)</p></li>
+<li><p>FLUTE (from <a class="reference external" href="http://home.eng.iastate.edu/~cnchu/flute.html">Chris C. N. Chu</a>)</p></li>
+</ul>
+<p>For other distributions, refer to their own packaging system.</p>
+<section id="fixed-directory-tree">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Fixed Directory Tree</a><a class="headerlink" href="#fixed-directory-tree" title="Permalink to this heading">¶</a></h2>
+<p>In order to simplify the work of the <span class="cb">ccb</span> installer, the source, build
+and installation tree is fixed. To successfully compile <span class="sc">Coriolis</span> you must
+follow it exactly. The tree is relative to the home directory of the user
+building it (note <span class="fboxtt">~/</span> or <span class="fboxtt">$HOME/</span>). Only the source
+directory needs to be manually created by the user, all others will be
+automatically created either by <span class="cb">ccb</span> or the build system.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><strong>Sources</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Sources root</div>
+<div class="line"><strong>under git</strong></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">~/coriolis-2.x/src</div>
+<div class="line">~/coriolis-2.x/src/coriolis</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Architecture Dependant Build</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Linux, SL 7, 64b</div>
+<div class="line">Linux, SL 6, 32b</div>
+<div class="line">Linux, SL 6, 64b</div>
+<div class="line">Linux, Fedora, 64b</div>
+<div class="line">Linux, Fedora, 32b</div>
+<div class="line">FreeBSD 8, 32b</div>
+<div class="line">FreeBSD 8, 64b</div>
+<div class="line">Windows 7, 32b</div>
+<div class="line">Windows 7, 64b</div>
+<div class="line">Windows 8.x, 32b</div>
+<div class="line">Windows 8.x, 64b</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">~/coriolis-2.x/Linux.el7_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.slsoc6x/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.slsoc6x_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.fc_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Linux.fc/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/FreeBSD.8x.i386/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/FreeBSD.8x.amd64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W7/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W7_64/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W8/Release.Shared/build/&lt;tool&gt;</div>
+<div class="line">~/coriolis-2.x/Cygwin.W8_64/Release.Shared/build/&lt;tool&gt;</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>Architecture Dependant Install</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Linux, SL 6, 32b</p></td>
+<td><p>~/coriolis-2.x/Linux.slsoc6x/Release.Shared/install/</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><strong>FHS Compliant Structure under Install</strong></p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Binaries</div>
+<div class="line">Libraries (Python)</div>
+<div class="line">Include by tool</div>
+<div class="line">Configuration files</div>
+<div class="line">Doc, by tool</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">…/install/bin</div>
+<div class="line">…/install/lib</div>
+<div class="line">…/install/include/coriolis2/&lt;project&gt;/&lt;tool&gt;</div>
+<div class="line">…/install/etc/coriolis2/</div>
+<div class="line">…/install/share/doc/coriolis2/en/html/&lt;tool&gt;</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Alternate build types:</em> the <code class="docutils literal notranslate"><span class="pre">Release.Shared</span></code> means an optimized build
+with shared libraries. But there are also available <code class="docutils literal notranslate"><span class="pre">Static</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Shared</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Debug</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Release</span></code> and any combination of them.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Static</span></code> does not work because I don’t know yet to mix statically linked binaries
+and Python modules (which must be dynamic).</p>
+</div>
+</section>
+<section id="building-coriolis">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Building Coriolis</a><a class="headerlink" href="#building-coriolis" title="Permalink to this heading">¶</a></h2>
+<section id="the-actively-developed-branch">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">The actively developed branch</a><a class="headerlink" href="#the-actively-developed-branch" title="Permalink to this heading">¶</a></h3>
+<p>The <strong>devel_anabatic</strong> branch is now closed and we go back to a more classical
+scheme where <strong>master</strong> is the stable version and <strong>devel</strong> the development one.</p>
+<p>The <span class="sc">Coriolis</span> <span class="cb">git</span> repository is <a class="reference external" href="https://github.com/lip6/coriolis.git">https://github.com/lip6/coriolis.git</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Again, the <strong>devel_anabatic</strong> branch is now closed. Please revert to <strong>devel</strong>
+or <strong>master</strong>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As it is now possible to mix <span class="sc">PyQt</span> widget with <span class="sc">Coriolis</span> ones, it is simpler
+for us to revert to <span class="sc">qt</span> 4 only. Our reference <span class="sc">os</span> being <span class="sc">rhel</span> 7, there is no
+compatible <span class="sc">PyQt5</span> build compatible with their <span class="sc">qt</span> 5 version (we fall short of
+one minor, they provides <span class="sc">qt</span> 5.9 were we need at least <span class="sc">qt</span> 5.10).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under <span class="sc">rhel</span> 7 or clones, they upgraded their version of <span class="sc">qt</span> 4 (from 4.6 to 4.8)
+so the <em>diagonal line</em> bug no longer occurs. So we can safely use the default
+system <span class="sc">qt</span> again.</p>
+</div>
+</section>
+<section id="installing-on-redhat-or-compatible-distributions">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Installing on <span class="sc">RedHat</span> or compatible distributions</a><a class="headerlink" href="#installing-on-redhat-or-compatible-distributions" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Install or check that the required prerequisites are installed :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>gcc-c++<span class="w"> </span>libstdc++-devel<span class="w">  </span><span class="se">\</span>
+<span class="w">                              </span>binutils-devel<span class="w">                                </span><span class="se">\</span>
+<span class="w">                              </span>boost-devel<span class="w"> </span>boost-python<span class="w"> </span>boost-filesystem<span class="w">     </span><span class="se">\</span>
+<span class="w">                              </span>boost-regex<span class="w">  </span>boost-wave<span class="w">                       </span><span class="se">\</span>
+<span class="w">                              </span>python-devel<span class="w"> </span>libxml2-devel<span class="w"> </span>bzip2-devel<span class="w">        </span><span class="se">\</span>
+<span class="w">                              </span>qt-devel
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>The packages <code class="docutils literal notranslate"><span class="pre">qwt</span></code> and <code class="docutils literal notranslate"><span class="pre">qwt-devel</span></code> are not provided by any standard repository
+(like <span class="sc">epel</span>). You may download them from the
+<a class="reference external" href="https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/letter_q.group.html">LIP6 Addons Repository</a>
+Then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>qwt-6.1.2-4.fc23.x86_64.rpm<span class="w">        </span><span class="se">\</span>
+<span class="w">                                   </span>qwt-devel-6.1.2-4.fc23.x86_64.rpm<span class="w">  </span><span class="c1"># Qwt for Qt 4.</span>
+</pre></div>
+</div>
+<p>You may also install them directly (whithout an intermediate download):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>http://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/RPMS/qwt-6.1.2-4.fc23.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>http://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/RPMS/qwt-devel-6.1.2-4.fc23.x86_64.rpm
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>Install the unpackaged prerequisites. Currently, only <a class="reference external" href="http://miloyip.github.io/rapidjson/">RapidJSON</a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src/support
+dummy@lepka:support&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src/support
+dummy@lepka:support&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>http://github.com/miloyip/rapidjson
+</pre></div>
+</div>
+</li>
+<li><p>Create the source directory and pull the <span class="cb">git</span> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/coriolis.git
+</pre></div>
+</div>
+</li>
+<li><p>Build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>devel
+dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pre-generated documentation will get installed by the previous command.
+Only if you did made modifications to it you need to regenerate it with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--doc<span class="w"> </span>--make<span class="o">=</span><span class="s2">&quot;-j1 install&quot;</span>
+</pre></div>
+</div>
+<p>We need to perform a separate installation of the documentation because it
+does not support to be generated with a parallel build. So we compile &amp; install in a first
+stage in <code class="docutils literal notranslate"><span class="pre">-j4</span></code> (or whatever) then we generate the documentation in <code class="docutils literal notranslate"><span class="pre">-j1</span></code></p>
+</div>
+<p>Under <span class="sc">rhel6</span> or clones, you must build using the <span class="cb">devtoolset</span>, the version is to
+be given as argument:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--devtoolset<span class="o">=</span><span class="m">8</span><span class="w"> </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+<p>If you want to use Qt 5 instead of Qt 4, modify the previous steps as follows:</p>
+<ul>
+<li><p>At <strong>step 1</strong>, do not install the <span class="sc">qt</span> 4 related development package (<code class="docutils literal notranslate"><span class="pre">qt4-devel</span></code>),
+but instead:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qt5-qtbase-devel<span class="w"> </span>qt5-qtsvg-devel<span class="w">              </span><span class="c1"># Qt 5.</span>
+</pre></div>
+</div>
+<p>The package <code class="docutils literal notranslate"><span class="pre">qwt-qt5-devel</span></code> and it’s dependency <code class="docutils literal notranslate"><span class="pre">qwt-qt5</span></code> are not provided
+by any standard repository (like <span class="sc">epel</span>). You may download them from the
+<a class="reference external" href="https://ftp.lip6.fr/pub/linux/distributions/slsoc/soc/7/addons/x86_64/repoview/letter_q.group.html">LIP6 Addons Repository</a>
+Then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>qwt-qt5-6.1.2-4.fc23.x86_64.rpm<span class="w">        </span><span class="se">\</span>
+<span class="w">                                   </span>qwt-qt5-devel-6.1.2-4.fc23.x86_64.rpm<span class="w">  </span><span class="c1"># Qwt for Qt 5.</span>
+</pre></div>
+</div>
+</li>
+<li><p>At <strong>step 4</strong>, add a <code class="docutils literal notranslate"><span class="pre">--qt5</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">ccb.py</span></code> command line.</p></li>
+<li><p>The <span class="sc">Python</span> scripts that make use of <span class="sc">PyQt</span> in <code class="docutils literal notranslate"><span class="pre">crlcore</span></code> and <code class="docutils literal notranslate"><span class="pre">cumulus</span></code> must be
+edited to import <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> instead of <code class="docutils literal notranslate"><span class="pre">PtQt4</span></code> (should find a way to automatically
+switch between the two of them).</p></li>
+</ul>
+<p>The complete list of <span class="cb">ccb</span> functionalities can be accessed with the <code class="docutils literal notranslate"><span class="pre">--help</span></code> argument.
+It also may be run in graphical mode (<code class="docutils literal notranslate"><span class="pre">--gui</span></code>).</p>
+</section>
+<section id="building-a-debug-enabled-version">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Building a Debug Enabled Version</a><a class="headerlink" href="#building-a-debug-enabled-version" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Release.Shared</span></code> default version of the <span class="sc">Coriolis</span> is built stripped of symbols
+and optimized so that it makes analysing a core dump after a crash difficult. In the
+(unlikely) case of a crash, you may want to build, alongside the optimized version,
+a debug one which allows forensic examination by <span class="cb">gdb</span> (or <span class="cb">valgrind</span> or whatever).</p>
+<p>Run again <code class="docutils literal notranslate"><span class="pre">ccb.py</span></code>, adding the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> argument:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>support<span class="w">  </span><span class="se">\</span>
+<span class="w">                                         </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span><span class="w"> </span>--debug
+</pre></div>
+</div>
+<p>As <span class="cb">cgt</span> is a <span class="sc">Python</span> script, the right command to run <span class="cb">gdb</span> is:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:work&gt;<span class="w"> </span>gdb<span class="w"> </span>python<span class="w"> </span>core.XXXX
+</pre></div>
+</div>
+<p></p>
+</section>
+<section id="installing-on-debian-9-ubuntu-18-or-compatible-distributions">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Installing on <span class="sc">Debian</span> 9, <span class="sc">Ubuntu</span> 18 or compatible distributions</a><a class="headerlink" href="#installing-on-debian-9-ubuntu-18-or-compatible-distributions" title="Permalink to this heading">¶</a></h3>
+<p>First, install or check that the required prerequisites are installed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>binutils-dev<span class="w">                     </span><span class="se">\</span>
+<span class="w">                                       </span>git<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>gcc<span class="w"> </span>python-dev<span class="w">              </span><span class="se">\</span>
+<span class="w">                                       </span>libboost-all-dev<span class="w"> </span>libboost-python-dev<span class="w">             </span><span class="se">\</span>
+<span class="w">                                       </span>zlib1g-dev<span class="w"> </span>libxml2-dev<span class="w"> </span>rapidjson-dev<span class="w"> </span>libbz2-dev
+</pre></div>
+</div>
+<p>To use with Qt 4:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qt4-dev-tools<span class="w"> </span>libqwt-dev<span class="w"> </span>python-qt4
+</pre></div>
+</div>
+<p>To use with Qt 5:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qtbase5-dev<span class="w"> </span>libqt5svg5-dev<span class="w"> </span>libqwt-qt5-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">                                       </span>python-pyqt5
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Do not install both versions of Qwt</strong> (for Qt 4 and Qt 5),
+this will confuse the installer and end up with a non functional software
+(it uses the headers from one Qt and libraries from the other version).</p>
+</div>
+<p>Second step is to create the source directory and pull the <span class="cb">git</span> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/coriolis.git
+</pre></div>
+</div>
+<p>Third and final step, build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>devel
+dummy@lepka:coriolis&gt;<span class="w"> </span>./bootstrap/ccb.py<span class="w"> </span>--project<span class="o">=</span>coriolis<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>--make<span class="o">=</span><span class="s2">&quot;-j4 install&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="additionnal-requirement-under-macos">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Additionnal Requirement under <span class="sc">MacOS</span></a><a class="headerlink" href="#additionnal-requirement-under-macos" title="Permalink to this heading">¶</a></h3>
+<p><span class="sc">Coriolis</span> makes use of the <span class="cb">boost::python</span> module, but the <span class="sc">MacPorts</span> <span class="cb">boost</span>
+seems unable to work with the <span class="sc">Python</span> bundled with <span class="sc">MacOS</span>. So you have to install
+both of them from <span class="sc">MacPorts</span>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@macos:~&gt;<span class="w"> </span>port<span class="w"> </span>install<span class="w"> </span>boost<span class="w"> </span>+python27
+dummy@macos:~&gt;<span class="w"> </span>port<span class="w"> </span><span class="k">select</span><span class="w"> </span>python<span class="w"> </span>python27
+dummy@macos:-&gt;<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DYLD_FRAMEWORK_PATH</span><span class="o">=</span>/opt/local/Library/Frameworks
+</pre></div>
+</div>
+<p>The last two lines tell <span class="sc">MacOS</span> to use the <span class="sc">Python</span> from <span class="sc">MacPorts</span> and <em>not</em> from
+the system.</p>
+<p>Then proceed with the generic install instructions.</p>
+</section>
+</section>
+<section id="coriolis-docker">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink"><span class="sc">Coriolis</span> &amp; Docker</a><a class="headerlink" href="#coriolis-docker" title="Permalink to this heading">¶</a></h2>
+<p>Under <code class="docutils literal notranslate"><span class="pre">bootstrap/docker/</span></code> scripts and configuration files are provided that
+allow to rebuild <span class="sc">Alliance</span> and <span class="sc">Coriolis</span> and perform the regression tests
+of <code class="docutils literal notranslate"><span class="pre">alliance-check-toolkit</span></code>. You may have a look at the <code class="docutils literal notranslate"><span class="pre">Dockerfile.system</span></code>
+configuration file to see exactly how to setup a vanilla system to build
+<span class="sc">Coriolis</span>.</p>
+<p>To run the docker tests, call the <code class="docutils literal notranslate"><span class="pre">dockerManage.sh</span></code> scripts with the relevant
+arguments:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-bS<span class="w">  </span><span class="c1"># build both system &amp; coriolis images.</span>
+ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-r<span class="w">   </span><span class="c1"># compile &amp; check coriolis.</span>
+ego@home:debian-9&gt;<span class="w"> </span>../../dockerManage.sh<span class="w"> </span>-C<span class="w">   </span><span class="c1"># clear the images.</span>
+</pre></div>
+</div>
+</section>
+<section id="packaging-coriolis">
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">Packaging Coriolis</a><a class="headerlink" href="#packaging-coriolis" title="Permalink to this heading">¶</a></h2>
+<p>Packager should not use <span class="cb">ccb</span>, instead <code class="docutils literal notranslate"><span class="pre">bootstrap/Makefile.package</span></code> is provided
+to emulate a top-level <code class="docutils literal notranslate"><span class="pre">autotool</span></code> makefile. Just copy it in the root of the
+<span class="sc">Coriolis</span> git repository (<code class="docutils literal notranslate"><span class="pre">~/corriolis-2.x/src/coriolis/</span></code>) and build.</p>
+<p>Sligthly outdated packaging configuration files can also be found under <code class="docutils literal notranslate"><span class="pre">bootstrap/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap/coriolis2.spec.in</span></code> for <span class="cb">rpm</span> based distributions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrap/debian</span></code> for <span class="sc">Debian</span> based distributions.</p></li>
+</ul>
+</section>
+<section id="hooking-up-into-alliance">
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">Hooking up into <span class="sc">Alliance</span></a><a class="headerlink" href="#hooking-up-into-alliance" title="Permalink to this heading">¶</a></h2>
+<p><span class="sc">Coriolis</span> relies on <span class="sc">Alliance</span> for the cell libraries. So after installing or
+packaging, you must configure it so that it can found those libraries.</p>
+<p>The easiest way is to setup the <span class="sc">Alliance</span> environment (i.e. sourcing
+<code class="docutils literal notranslate"><span class="pre">.../etc/profile.d/alc_env.{sh,csh}</span></code>) <strong>before</strong> setting up <span class="sc">Coriolis</span> environment
+(see the next section). To understand how <span class="sc">Coriolis</span> find/setup <span class="sc">Alliance</span> you may
+have look to the <cite>Alliance Helper</cite>.</p>
+</section>
+<section id="setting-up-the-environment-coriolisenv-py">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">Setting up the Environment (coriolisEnv.py)</a><a class="headerlink" href="#setting-up-the-environment-coriolisenv-py" title="Permalink to this heading">¶</a></h2>
+<p>To simplify the tedious task of configuring your environment, a helper is provided
+in the <code class="docutils literal notranslate"><span class="pre">bootstrap</span></code> source directory (also installed in the directory
+<code class="docutils literal notranslate"><span class="pre">.../install/etc/coriolis2/</span></code>) :</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py
+</pre></div>
+</div>
+<p>Use it like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="sb">`</span>~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py<span class="sb">`</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Do not call that script in your environement initialisation.</strong>
+When used under <span class="sc">rhel6</span> or clones, it needs to be run in the <span class="cb">devtoolset</span>
+environement. The script then launch a new shell, which may cause an
+infinite loop if it’s called again in, say <span class="cb">~/.bashrc</span>.</p>
+<p>Instead you may want to create an alias:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">c2r</span><span class="o">=</span><span class="s1">&#39;eval &quot;`~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py`&quot;&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="cgt-the-graphical-interface">
+<h1><a class="toc-backref" href="#id27" role="doc-backlink">CGT - The Graphical Interface</a><a class="headerlink" href="#cgt-the-graphical-interface" title="Permalink to this heading">¶</a></h1>
+<p>The <span class="sc">Coriolis</span> graphical interface is split up into two windows.</p>
+<ul class="simple">
+<li><p>The <strong>Viewer</strong>, with the following features:</p>
+<ul>
+<li><p>Basic load/save capabilities.</p></li>
+<li><p>Displays the current working cell. Could be empty if the design
+is not yet placed.</p></li>
+<li><p>Executes Stratus Scripts.</p></li>
+<li><p>Menu to run the tools (placement, routage).</p></li>
+</ul>
+</li>
+</ul>
+<p>Features are detailed in <a class="reference internal" href="#viewer-tools">Viewer &amp; Tools</a>.</p>
+<p><a class="reference internal" href="../../_images/Viewer-11.png"><img alt="Viewer Basic Snapshot" class="align-middle" src="../../_images/Viewer-11.png" style="width: 80%;" /></a></p>
+<ul class="simple">
+<li><p>The <strong>Controller</strong>, which allows to:</p>
+<ul>
+<li><p>Tweak what is displayed by the <em>Viewer</em>. Through the <em>Look</em>,
+<em>Filter</em> and <em>Layers&amp;Gos</em> tabs.</p></li>
+<li><p>Browse the <em>netlist</em> with eponym tab.</p></li>
+<li><p>Show the list of selected objects (if any) with <em>selection</em></p></li>
+<li><p>Walk through the Database, the Cell or the Selection with <em>Inspector</em>.
+This is an advanced feature, reserved for experimented users.</p></li>
+<li><p>The tab <em>Settings</em> which gives access to all the settings.
+They are closely related to Configuration &amp; Initialisation.</p></li>
+</ul>
+</li>
+</ul>
+<p> <a class="reference internal" href="../../_images/Controller-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-11.png" style="width: 80%;" /></a> </p>
+<section id="viewer-tools">
+<span id="id3"></span><h2><a class="toc-backref" href="#id28" role="doc-backlink">Viewer &amp; Tools</a><a class="headerlink" href="#viewer-tools" title="Permalink to this heading">¶</a></h2>
+<section id="stratus-netlist-capture">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink"><span class="sc">Stratus</span> Netlist Capture</a><a class="headerlink" href="#stratus-netlist-capture" title="Permalink to this heading">¶</a></h3>
+<p><span class="sc">Stratus</span> is the replacement for <span class="sc">GenLib</span> procedural netlist capture language.
+It is designed as a set of <span class="sc">Python</span> classes, and comes with it’s own documentation
+(<a class="reference external" href="http://coriolis.lip6.fr/pages/stratus-language.html">Stratus Documentation</a>)</p>
+</section>
+<section id="the-hurricane-data-base">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">The <span class="sc">Hurricane</span> Data-Base</a><a class="headerlink" href="#the-hurricane-data-base" title="Permalink to this heading">¶</a></h3>
+<p>The <span class="sc">Alliance</span> flow is based on the <span class="sc">mbk</span> data-base, which has one data-structure
+for each view. That is, <span class="cb">Lofig</span> for the <em>logical</em> view and <span class="cb">Phfig</span> for the <em>physical</em>
+view. The place and route tools were responsible for maintaining (or not) the
+coherency between views. Reflecting this weak coupling between views, each one
+was stored in a separate file with a specific format. The <em>logical</em> view is stored
+in a <span class="cb">vst</span> file in <span class="sc">vhdl</span> format and the <em>physical</em> in an <span class="cb">ap</span> file in an ad-hoc format.</p>
+<p>The <span class="sc">Coriolis</span> flow is based on the <span class="sc">Hurricane</span> data-base, which has a unified
+structure for <em>logical</em> and <em>physical</em> view. That data structure is the <em>Cell</em> object.
+The <em>Cell</em> can have any state between pure netlist and completly placed and
+routed design. Although the memory representation of the views has deeply
+changed we still use the <span class="sc">Alliance</span> files format, but they now really represent
+views of the same object. The point is that one must be very careful about
+view coherency when going to and from <span class="sc">Coriolis</span>.</p>
+<p>As for the second release, <span class="sc">Coriolis</span> can be used only for three purposes :</p>
+<ul class="simple">
+<li><p><strong>Placing a design</strong>, in which case the <em>netlist</em> view must be present.</p></li>
+<li><p><strong>Routing a design</strong>, in that case the <em>netlist</em>
+view and the <em>layout</em> view must be present and  <em>layout</em> view must contain
+a placement. Both views must have the same name. When saving the routed design,
+it is advised to change the design name otherwise the original unrouted placement
+in the <em>layout</em> view will be overwritten.</p></li>
+<li><p><strong>Viewing a design</strong>, the <em>netlist</em> view must be present, if a <em>layout</em>
+view is present it still must have the same name but it can be in any
+state.</p></li>
+</ul>
+</section>
+<section id="synthetizing-and-loading-a-design">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Synthetizing and loading a design</a><a class="headerlink" href="#synthetizing-and-loading-a-design" title="Permalink to this heading">¶</a></h3>
+<p><span class="sc">Coriolis</span> supports several file formats. It can load all file format
+from the <span class="sc">Alliance</span> toolchain (.ap for layout, behavioural and structural vhdl .vbe and .vst),
+BLIF netlist format as well as benchmark formats from the ISPD contests.</p>
+<p>It can be compiled with LEF/DEF support, although it requires acceptance of the SI2 license
+and may not be compiled in your version of the software.</p>
+<section id="synthesis-under-yosys">
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">Synthesis under Yosys</a><a class="headerlink" href="#synthesis-under-yosys" title="Permalink to this heading">¶</a></h4>
+<p>You can create a BLIF file from the <span class="sc">Yosys</span> synthetizer, which can be imported under Coriolis.
+Most libraries are specified as a .lib liberty file and a .lef LEF file.
+<span class="sc">Yosys</span> opens most .lib files with minor modifications, but LEF support in Coriolis relies on SI2.
+If Coriolis hasn’t been compiled against it, the library is given in <span class="sc">Alliance</span> .ap format.
+<a class="reference external" href="http://vlsitechnology.org">Some free libraries</a> already provide both .ap and .lib files.</p>
+<p>Once you have installed a common library under <span class="sc">Yosys</span> and Coriolis, just synthetize your design
+with <span class="sc">Yosys</span> and import it (as Blif without the extension) under Coriolis to perform place&amp;route.</p>
+</section>
+<section id="synthesis-under-alliance">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">Synthesis under Alliance</a><a class="headerlink" href="#synthesis-under-alliance" title="Permalink to this heading">¶</a></h4>
+<p><span class="sc">Alliance</span> is an older toolchain but has been extensively used for years. Coriolis can import
+and write Alliance designs and libraries directly.</p>
+</section>
+</section>
+<section id="etesian-placer">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Etesian – Placer</a><a class="headerlink" href="#etesian-placer" title="Permalink to this heading">¶</a></h3>
+<p>The <span class="sc">Etesian</span> placer is a state of the art (as of 2015) analytical placer. It is
+within <code class="docutils literal notranslate"><span class="pre">5%</span></code> of other placers’ solutions, but is normally a bit worse than ePlace.
+This <span class="sc">Coriolis</span> tool is actually an encapsulation of <span class="sc">Coloquinte</span> which <em>is</em> the placer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Instance Uniquification:</em> a same logical instance cannot have
+two different placements. So, if you don’t supply a placement for it, it will be
+uniquified (cloned) and you will see the copy files appears on disk upon saving.</p>
+</div>
+<p>  <span class="raw-html"><p class="noindent"></p></span>
+<strong>Hierarchical Placement</strong></p>
+<p>The placement area is defined by the top cell abutment box.</p>
+<p>When placing a complete hierarchy, the abutment boxes of the cells (models) other than
+the top cell are set identical to the one of the top cell and their instances are
+all placed at position <code class="docutils literal notranslate"><span class="pre">(0,0,ID)</span></code>. That is, all the abutments boxes, whatever the
+hierarchical level, define the same area (they are exactly superposed).</p>
+<p>We choose this scheme because the placer will see all the instances as virtually
+flattened, so they can be placed anywhere inside the top-cell abutment box.</p>
+<p> <a class="reference internal" href="../../_images/etesian-11.png"><img alt="Etesian Abutment Box" class="align-middle" src="../../_images/etesian-11.png" style="width: 80%;" /></a> </p>
+<p>  <span class="raw-html"><p class="noindent"></p></span>
+<strong>Computing the Placement Area</strong></p>
+<p>The placement area is computed using the <code class="docutils literal notranslate"><span class="pre">etesian.aspectRatio</span></code> and <code class="docutils literal notranslate"><span class="pre">etesian.spaceMargin</span></code>
+parameters only if the top-cell has an empty abutment box. If the top-cell abutment
+box has to be set, then it is propagated to all the instances models recursively.</p>
+<p>  <span class="raw-html"><p class="noindent"></p></span>
+<strong>Reseting the Placement</strong></p>
+<p>Once a placement has been done, the placer cannot reset it (will be implemented
+later). To perform a new placement, you must restart <span class="cb">cgt</span>. In addition, if you
+have saved the placement on disk, you must erase any <span class="cb">.ap</span> file, which are
+automatically reloaded along with the netlist (<span class="cb">.vst</span>).</p>
+<p>  <span class="raw-html"><p class="noindent"></p></span>
+<strong>Limitations</strong></p>
+<p>Etesian supports standard cells and fixed macros. As for the Coriolis 2.1 version,
+it doesn’t support movable macros, and you must place every macro beforehand.
+Timing and routability analysis are not included either, and the returned placement
+may be unroutable.</p>
+<section id="etesian-configuration-parameters">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">Etesian Configuration Parameters</a><a class="headerlink" href="#etesian-configuration-parameters" title="Permalink to this heading">¶</a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Identifier</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>Etesian Parameters</strong></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.aspectRatio</span></code></p></td>
+<td><p>TypePercentage</p></td>
+<td><p><span class="cb">100</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Define the height on width <code class="docutils literal notranslate"><span class="pre">H/W</span></code> aspect
+ratio, can be comprised between 10 and 1000</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.spaceMargin</span></code></p></td>
+<td><p>TypePercentage</p></td>
+<td><p><span class="cb">5</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The extra white space added to the total area
+of the standard cells</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.densityVariation</span></code></p></td>
+<td><p>TypePercentage</p></td>
+<td><p><span class="cb">5</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Control deviation from uniform density in the
+placement, as a percentage of area.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.effort</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">2</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Sets the balance between the speed of the
+placer and the solution quality</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.routingDriven</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Whether the tool will try routing iterations
+and whitespace allocation to improve
+routability; to be implemented</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">etesian.graphics</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">2</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>How often the display will be refreshed
+More refreshing slows the placer.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> shows both upper and lower bounds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> only shows lower bound results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> only shows the final results</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</section>
+</section>
+<section id="katana-global-router">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Katana – Global Router</a><a class="headerlink" href="#katana-global-router" title="Permalink to this heading">¶</a></h3>
+<p>The quality of <span class="sc">Katana</span> global routing solutions are equivalent to those of <a class="reference external" href="http://vlsicad.eecs.umich.edu/BK/FGR/">FGR</a> 1.0.
+For an in-depth description of <span class="sc">Katana</span> algorithms, you may download the thesis of
+D. <span class="sc">Dupuis</span> avalaible from here~: <a class="reference external" href="http://www-soc.lip6.fr/en/users/damiendupuis/PhD/">Knik Thesis</a> (<span class="sc">Knik</span> has been rewritten as part
+of <span class="sc">Katana</span>, the algorithms remains essentially the same).</p>
+<p>The global router is now deterministic.</p>
+</section>
+<section id="katana-detailed-router">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Katana – Detailed Router</a><a class="headerlink" href="#katana-detailed-router" title="Permalink to this heading">¶</a></h3>
+<p><span class="sc">Katana</span> no longer suffers from the limitations of <span class="sc">Nero</span>. It can route big designs
+as its runtime and memory footprint is almost linear (with respect to the number
+of gates). It has successfully routed design of more than <cite>150K</cite> gates.
+   <span class="raw-html"><br class="medskip"/></span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Slow Layer Assignment.</strong> Most of the time, the layer assignment stage is
+fast (less than a dozen seconds), but in some instances it can take more
+than a dozen <em>minutes</em>. This is a known bug and will be corrected in later
+releases.</p>
+</div>
+<p>After each run, <span class="sc">Katana</span> displays a set of <em>completion ratios</em> which must all
+be equal to <cite>100%</cite> or (<code class="docutils literal notranslate"><span class="pre">NNNN+0</span></code>) if the detailed routing has been successfull.
+In the event of a failure, on a saturated design, you may tweak the three
+following configuration parameters:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">katana.hTrackReservedLocal</span></code>, the number of track reserved for local routing,
+that quantity is substracted from the edge capacities (global routing) to
+give a sense of the cluttering inside the GCells.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">katana.vTrackReservedLocal</span></code>, same as above.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">etesian.spaceMargin</span></code>, increases the free area of the overall design so the
+routing density decrease.</p></li>
+</ol>
+<p>The idea is to increase the horizontal and vertical local track reservation until
+the detailed router succeeds. But in doing so we make the task of the global router
+more and more difficult as the capacity of the edges decreases, and at some point
+it will fail too. So this is a balance.</p>
+<p>Routing a design is done in four ordered steps:</p>
+<ol class="arabic simple">
+<li><p>Detailed pre-route <span class="math notranslate nohighlight">\(\textbf{P\&amp;R} \rightarrow \textbf{Step by Step} \rightarrow \textbf{Detailed PreRoute}\)</span></p></li>
+<li><p>Global routing     <span class="math notranslate nohighlight">\(\textbf{P\&amp;R} \rightarrow \textbf{Step by Step} \rightarrow \textbf{Global Route}\)</span></p></li>
+<li><p>Detailed routing   <span class="math notranslate nohighlight">\(\textbf{P\&amp;R} \rightarrow \textbf{Step by Step} \rightarrow \textbf{Detailed Route}\)</span></p></li>
+<li><p>Finalize routing   <span class="math notranslate nohighlight">\(\textbf{P\&amp;R} \rightarrow \textbf{Step by Step} \rightarrow \textbf{Finalize Route}\)</span></p></li>
+</ol>
+<p>It is possible to supply to the router a complete wiring for some nets that the user
+wants to be routed according to a specific topology. The supplied topology must respect
+the building rules of the <span class="sc">Anabatic</span> database (contacts must be, <em>terminals</em>, <em>turns</em>, <em>h-tee</em>
+&amp; <em>v-tee</em> only). During the first step <span class="fboxtt">Detailed Pre-Route</span> the router will solve
+overlaps between the segments, without making any dogleg. If no pre-routed topologies
+are present, this step may be ommited. Any net routed at this step is then fixed and
+become unmovable for the later stages.</p>
+<p>After the detailed routing step the <span class="sc">Katana</span> data-structure is still active
+(the Hurricane wiring is decorated). The finalize step performs the removal of
+the <span class="sc">Katana</span> data-structure, and it is not advisable to save the design before
+that step.</p>
+<p>You may visualize the density (saturation) of either the edges (global routing)
+or the GCells (detailed routing) until the routing is finalized. Special layers appear
+to that effect in the <a class="reference internal" href="#the-layers-go-tab">The Layers&amp;Go Tab</a>.</p>
+<section id="katana-configuration-parameters">
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">Katana Configuration Parameters</a><a class="headerlink" href="#katana-configuration-parameters" title="Permalink to this heading">¶</a></h4>
+<p>The <span class="sc">Anabatic</span> parameters control the layer assignment step.</p>
+<p>All the defaults value given below are from the default <span class="sc">Alliance</span> technology
+(<span class="cb">cmos</span> and <span class="cb">SxLib</span> cell gauge/routing gauge).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Identifier</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>Anabatic Parameters</strong></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">anabatic.topRoutingLayer</span></code></p></td>
+<td><p>TypeString</p></td>
+<td><p><span class="cb">METAL5</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Define the highest metal layer that will be
+used for routing (inclusive).</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">anabatic.globalLengthThreshold</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">1450</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>This parameter is used by a layer assignment
+method which is no longer used (did not give
+good results)</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">anabatic.saturateRatio</span></code></p></td>
+<td><p>TypePercentage</p></td>
+<td><p><span class="cb">80</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>If <code class="docutils literal notranslate"><span class="pre">M(x)</span></code> density is above this ratio,
+move up feedthru  global segments up from
+depth <code class="docutils literal notranslate"><span class="pre">x</span></code> to <code class="docutils literal notranslate"><span class="pre">x+2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">anabatic.saturateRp</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">8</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>If a GCell contains more terminals
+(<span class="cb">RoutingPad</span>) than that number, force a
+move up of the connecting segments to those
+in excess</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><strong>Katana Parameters</strong></p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.hTracksReservedLocal</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">3</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>To take account the tracks needed <em>inside</em> a
+GCell to build the <em>local</em> routing, decrease
+the capacity of the edges of the global
+router. Horizontal and vertical locally
+reserved capacity can be distinguished for
+more accuracy.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.vTracksReservedLocal</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">3</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>cf. <code class="docutils literal notranslate"><span class="pre">kite.hTracksReservedLocal</span></code></p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.eventsLimit</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">4000002</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>The maximum number of segment displacements,
+this is a last ditch safety against infinite
+loop. It’s perhaps a  little too low for big
+designs</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.ripupCost</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">3</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Differential introduced between two ripup
+costs to avoid a loop between two ripped up
+segments</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.strapRipupLimit</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">16</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Maximum number of ripup for <em>strap</em> segments</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.localRipupLimit</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">9</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Maximum number of ripup for <em>local</em> segments</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.globalRipupLimit</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">5</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Maximum number of ripup for <em>global</em> segments,
+when this limit is reached, triggers topologic
+modification</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">katana.longGlobalRipupLimit</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">5</span></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Maximum number of ripup for <em>long global</em>
+segments, when this limit is reached, triggers
+topological modification</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="executing-python-scripts-in-cgt">
+<span id="python-scripts-in-cgt"></span><h3><a class="toc-backref" href="#id39" role="doc-backlink">Executing Python Scripts in Cgt</a><a class="headerlink" href="#executing-python-scripts-in-cgt" title="Permalink to this heading">¶</a></h3>
+<p>Python/Stratus scripts can be executed either in text or graphical mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>How Cgt Locates Python Scripts:</strong>
+<span class="cb">cgt</span> uses the Python <code class="docutils literal notranslate"><span class="pre">import</span></code> mechanism to load Python scripts.
+So you must give the name of your script whithout <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension and
+it must be reachable through the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>. You may use the
+dotted module notation.</p>
+</div>
+<p>A Python/Stratus script must contain a function called <code class="docutils literal notranslate"><span class="pre">scriptMain()</span></code>
+with one optional argument, the graphical editor into which it may be
+running (will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code> in text mode). The Python interface to
+the editor (type: <span class="cb">CellViewer</span>) is limited to basic capabilities
+only.</p>
+<p>Any script given on the command line will be run immediatly <em>after</em> the
+initializations and <em>before</em> any other argument is processed.</p>
+<p>For more explanation on Python scripts see <cite>Python Interface to Coriolis</cite>.</p>
+</section>
+<section id="printing-snapshots">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">Printing &amp; Snapshots</a><a class="headerlink" href="#printing-snapshots" title="Permalink to this heading">¶</a></h3>
+<p>Printing or saving into a <span class="sc">pdf</span> is fairly simple, just use the <strong>File -&gt; Print</strong>
+menu or the <span class="fboxtt">CTRL+P</span> shortcut to open the dialog box.</p>
+<p>The print functionality uses exactly the same rendering mechanism as for the
+screen, beeing almost <em>WYSIWYG</em>. Thus, to obtain the best results it is advisable
+to select the <code class="docutils literal notranslate"><span class="pre">Coriolis.Printer</span></code> look (in the <em>Controller</em>), which uses a
+white background and well suited for high resolutions <code class="docutils literal notranslate"><span class="pre">32x32</span></code> pixels patterns</p>
+<p>There is also two modes of printing selectable through the <em>Controller</em>
+<strong>Settings -&gt; Misc -&gt; Printer/Snapshot Mode</strong>:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Mode</p></td>
+<td><p>DPI (approx.)</p></td>
+<td><p>Intended Usage</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Cell Mode</strong></p></td>
+<td><p>150</p></td>
+<td><p>For single <code class="docutils literal notranslate"><span class="pre">Cell</span></code> printing or very small designs.
+Patterns will be bigger and more readable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Design Mode</strong></p></td>
+<td><p>300</p></td>
+<td><p>For designs (mostly commposed of wires and cells
+outlines).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>The pdf file size</em>
+Be aware that the generated <span class="sc">pdf</span> files are indeed only pixmaps.
+So they can grew very large if you select paper format above <code class="docutils literal notranslate"><span class="pre">A2</span></code>
+or similar.</p>
+</div>
+<p>  <span class="raw-html"><p class="noindent"></p></span>
+Saving into an image is subject to the same remarks as for <span class="sc">pdf</span>.</p>
+</section>
+<section id="memento-of-shortcuts-in-graphic-mode">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Memento of Shortcuts in Graphic Mode</a><a class="headerlink" href="#memento-of-shortcuts-in-graphic-mode" title="Permalink to this heading">¶</a></h3>
+<p>The main application binary is <span class="cb">cgt</span>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Keys</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Moves</strong></p></td>
+<td><div class="line-block">
+<div class="line"><span class="fboxtt">Up</span>,
+<span class="fboxtt">Down</span></div>
+<div class="line"><span class="fboxtt">Left</span>,
+<span class="fboxtt">Right</span></div>
+</div>
+</td>
+<td><p>Shifts the view in the according direction</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Fit</strong></p></td>
+<td><p><span class="fboxtt">f</span></p></td>
+<td><p>Fits to the Cell abutment box</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Refresh</strong></p></td>
+<td><p><span class="fboxtt">CTRL+L</span></p></td>
+<td><p>Triggers a complete display redraw</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Goto</strong></p></td>
+<td><p><span class="fboxtt">g</span></p></td>
+<td><p><em>apperture</em> is the minimum side of the area
+displayed around the point to go to. It’s an
+alternative way of setting the zoom level</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><strong>Zoom</strong></p></td>
+<td><p><span class="fboxtt">z</span>,
+<span class="fboxtt">m</span></p></td>
+<td><p>Respectively zoom by a 2 factor and <em>unzoom</em>
+by a 2 factor</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><a class="reference internal" href="../../_images/ComputerMouse1.png"><img alt="BigMouse" src="../../_images/ComputerMouse1.png" style="width: 30%;" /></a></div>
+<div class="line">Area Zoom</div>
+</div>
+</td>
+<td><p>You can perform a zoom to an area.
+Define the zoom area by <em>holding down the left
+mouse button</em> while moving the mouse.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p><strong>Selection</strong></p></td>
+<td><div class="line-block">
+<div class="line"><a class="reference internal" href="../../_images/ComputerMouse1.png"><img alt="BigMouse" src="../../_images/ComputerMouse1.png" style="width: 30%;" /></a></div>
+<div class="line">Area Selection</div>
+</div>
+</td>
+<td><p>You can select displayed objects under an area.
+Define the selection area by <em>holding down the
+right mouse button</em> while moving the mouse.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><a class="reference internal" href="../../_images/ComputerMouse1.png"><img alt="BigMouse" src="../../_images/ComputerMouse1.png" style="width: 30%;" /></a></div>
+<div class="line">Toggle Selection</div>
+</div>
+</td>
+<td><p>You can toggle the selection of one object under
+the mouse position by pressing <span class="fboxtt">CTRL</span> and
+pressing down <em>the right mouse button</em>. A popup
+list of what’s under the position shows up into
+which you can toggle the selection state of one
+item.</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="fboxtt">S</span></p></td>
+<td><p>Toggle  the selection visibility</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Controller</strong></p></td>
+<td><p><span class="fboxtt">CTRL+I</span></p></td>
+<td><p>Show/hide the controller window.</p>
+<p>It’s the Swiss Army Knife of the viewer.
+From it, you can fine-control the display and
+inspect almost everything in your design.</p>
+</td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><strong>Rulers</strong></p></td>
+<td><p><span class="fboxtt">k</span>,
+<span class="fboxtt">ESC</span></p></td>
+<td><p>One stroke on <span class="fboxtt">k</span> enters the ruler mode, in
+which you can draw one ruler. You can exit the
+ruler mode by pressing <span class="fboxtt">ESC</span>. Once in ruler
+mode, the first click on the <em>left mouse button</em>
+sets the ruler’s starting point and the second
+click the ruler’s end point. The second click
+exits automatically the ruler mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="fboxtt">K</span></p></td>
+<td><p>Clears all the drawn rulers</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Print</strong></p></td>
+<td><p><span class="fboxtt">CTRL+P</span></p></td>
+<td><p>Currently rather crude. It’s a direct copy of
+what’s displayed in pixels. So the resulting
+picture will be a little blurred due to
+anti-aliasing mechanism.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p><strong>Open/Close</strong></p></td>
+<td><p><span class="fboxtt">CTRL+O</span></p></td>
+<td><p>Opens a new design. The design name must be
+given without path or extention.</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="fboxtt">CTRL+W</span></p></td>
+<td><p>Closes the current viewer window, but does not quit
+the application.</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="fboxtt">CTRL+Q</span></p></td>
+<td><p><cite>CTRL+Q</cite> quits the application
+(closing all windows).</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p><strong>Hierarchy</strong></p></td>
+<td><p><span class="fboxtt">CTRL+Down</span></p></td>
+<td><p>Goes one hierarchy level down. That is, if there
+is an <em>instance</em> under the cursor position, loads
+its <em>model</em> Cell in place of the current one.</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="fboxtt">CTRL+Up</span></p></td>
+<td><p>Goes one hierarchy level up. If we have entered
+the current model through <span class="fboxtt">CTRL+Down</span>
+reloads the previous model (the one
+in which this model is instanciated).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cgt-command-line-options">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">Cgt Command Line Options</a><a class="headerlink" href="#cgt-command-line-options" title="Permalink to this heading">¶</a></h3>
+<p>Appart from the obvious <code class="docutils literal notranslate"><span class="pre">--text</span></code> options, all can be used for text and graphical mode.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Arguments</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>-t|–text</cite></p></td>
+<td><p>Instructs <span class="cb">cgt</span> to run in text mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>-L|–log-mode</cite></p></td>
+<td><p>Disables the use of <span class="sc">ansi</span> escape sequence on
+the <span class="cb">tty</span>. Useful when the output is
+redirected to a file.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>-c &lt;cell&gt;|–cell=&lt;cell&gt;</cite></p></td>
+<td><p>The name of the design to load, without
+leading path or extention.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>-m &lt;val&gt;|–margin=&lt;val&gt;</cite></p></td>
+<td><p>Percentage <em>val</em> of white space for the placer
+(<span class="sc">Etesian</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>–events-limit=&lt;count&gt;</cite></p></td>
+<td><p>The maximal number of events after which the
+router will stop. This is mainly a failsafe
+against looping. The limit is set to 4
+millions of iteration which should suffice to
+any design of <cite>100K</cite>. gates. For bigger
+designs you may want to increase this limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>-G|–global-route</cite></p></td>
+<td><p>Runs the global router (<span class="sc">Katana</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>-R|–detailed-route</cite></p></td>
+<td><p>Runs the detailed router (<span class="sc">Katana</span>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>-s|–save-design=&lt;routed&gt;</cite></p></td>
+<td><p>The design into which the routed layout will
+be saved. It is strongly recommanded to choose
+a different name from the source (unrouted)
+design.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>–stratus-script=&lt;module&gt;</cite></p></td>
+<td><p>Run the Python/Stratus script <code class="docutils literal notranslate"><span class="pre">module</span></code>.
+See <a class="reference internal" href="#python-scripts-in-cgt">Python Scripts in Cgt</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>Some Examples :</p>
+<ul>
+<li><p>Run both global and detailed router, then save the routed design:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>cgt<span class="w"> </span>-v<span class="w"> </span>-t<span class="w"> </span>-G<span class="w"> </span>-R<span class="w"> </span>--cell<span class="o">=</span>design<span class="w"> </span>--save-design<span class="o">=</span>design_r
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="miscellaneous-settings">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Miscellaneous Settings</a><a class="headerlink" href="#miscellaneous-settings" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Identifier</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>Verbosity/Log Parameters</strong></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.info</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Enables display of <em>info</em> level message
+(<span class="cb">cinfo</span> stream)</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.bug</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Enables display of <em>bug</em> level message
+(<span class="cb">cbug</span> stream), messages can be a little
+scarry</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.logMode</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>If enabled, assumes that the output device
+is not a <code class="docutils literal notranslate"><span class="pre">tty</span></code> and suppresses any escape
+sequences</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.verboseLevel1</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">True</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>First level of verbosity, disables level 2</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.verboseLevel2</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Second level of verbosity</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><strong>Development/Debug Parameters</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">misc.minTraceLevel</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">0</span></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.maxTraceLevel</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><span class="cb">0</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Displays trace information <em>between</em> those two
+levels (<span class="cb">cdebug</span> stream)</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">misc.catchCore</span></code></p></td>
+<td><p>TypeBool</p></td>
+<td><p><span class="cb">False</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>By default, <span class="cb">cgt</span> does not dump core.
+To generate one set this flag to <span class="cb">True</span></p></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</section>
+</section>
+<section id="the-controller">
+<span id="id4"></span><h2><a class="toc-backref" href="#id44" role="doc-backlink">The Controller</a><a class="headerlink" href="#the-controller" title="Permalink to this heading">¶</a></h2>
+<p>The <em>Controller</em> window is composed of seven tabs:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#the-look-tab">The Look Tab</a> to select the display style.</p></li>
+<li><p><a class="reference internal" href="#the-filter-tab">The Filter Tab</a> the hierarchical levels to be displayed, the look of
+rubbers and the dimension units.</p></li>
+<li><p><a class="reference internal" href="#the-layers-go-tab">The Layers&amp;Go Tab</a> to selectively hide/display layers.</p></li>
+<li><p><a class="reference internal" href="#the-netlist-tab">The Netlist Tab</a> to browse through the <em>netlist</em>. Works in association
+with the <em>Selection</em> tab.</p></li>
+<li><p><a class="reference internal" href="#the-selection-tab">The Selection Tab</a> allows to view all the currently selected elements.</p></li>
+<li><p><a class="reference internal" href="#the-inspector-tab">The Inspector Tab</a> browses through either the DataBase, the Cell or
+the current selection.</p></li>
+<li><p><a class="reference internal" href="#the-settings-tab">The Settings Tab</a> accesses all the tool’s configuration settings.</p></li>
+</ol>
+<section id="the-look-tab">
+<span id="id5"></span><h3><a class="toc-backref" href="#id45" role="doc-backlink">The Look Tab</a><a class="headerlink" href="#the-look-tab" title="Permalink to this heading">¶</a></h3>
+<p>You can select how the layout will be displayed. There is a special one
+<code class="docutils literal notranslate"><span class="pre">Printer.Coriolis</span></code> specifically designed for <a class="reference internal" href="#printing-snapshots">Printing &amp; Snapshots</a>.
+You should select it prior to calling the print or snapshot dialog boxes.</p>
+<p> <a class="reference internal" href="../../_images/Controller-Look-11.png"><img alt="Controller Look, Snapshot 1" class="align-middle" src="../../_images/Controller-Look-11.png" style="width: 80%;" /></a> </p>
+<p></p>
+</section>
+<section id="the-filter-tab">
+<span id="id6"></span><h3><a class="toc-backref" href="#id46" role="doc-backlink">The Filter Tab</a><a class="headerlink" href="#the-filter-tab" title="Permalink to this heading">¶</a></h3>
+<p>The filter tab let you select what hierarchical levels of your design will be
+displayed. Hierarchy level are numbered top-down: the level 0 corresponds to
+the top-level cell, the level one to the instances of the top-level Cell and
+so on.</p>
+<p>There are also check boxes to enable/disable the processing of Terminal Cell,
+Master Cells and Components. The processing of Terminal Cell (hierarchy leaf
+cells) is disabled by default when you load a hierarchical design and enabled
+when you load a single Cell.</p>
+<p>You can choose what kind of form to give to the rubbers and the type of
+unit used to display coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>What are Rubbers:</em> <span class="sc">Hurricane</span> uses <em>Rubbers</em> to materialize
+physical gaps in net topology. That is, if some wires are missing to
+connect two or more parts of net, a <em>rubber</em> will be drawn between them
+to signal the gap.</p>
+<p>For example, after the detailed routing no <em>rubber</em> should remain.
+They have been made <em>very</em> visible as big violet lines…</p>
+</div>
+<p> <a class="reference internal" href="../../_images/Controller-Filter-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Filter-11.png" style="width: 80%;" /></a> </p>
+<p></p>
+</section>
+<section id="the-layers-go-tab">
+<span id="id7"></span><h3><a class="toc-backref" href="#id47" role="doc-backlink">The Layers&amp;Go Tab</a><a class="headerlink" href="#the-layers-go-tab" title="Permalink to this heading">¶</a></h3>
+<p>Control the individual display of all <em>layers</em> and <em>Gos</em>.</p>
+<ul class="simple">
+<li><p><em>Layers</em> correspond to true physical layers. From a <span class="sc">Hurricane</span> point of
+view they are all the <em>BasicLayers</em> (could be matched to GDSII).</p></li>
+<li><p><em>Gos</em> stands from <em>Graphical Objects</em>, they are drawings that have no
+physical existence but are added by the various tools to display extra
+information. One good exemple is the density map of the detailed router,
+to easily locate congested areas.</p></li>
+</ul>
+<p>For each layer/Go there are two check boxes:</p>
+<ul class="simple">
+<li><p>The normal one triggers the display.</p></li>
+<li><p>The red-outlined allows objects of that layer to be selectable or not.</p></li>
+</ul>
+<p> <a class="reference internal" href="../../_images/Controller-LayersGos-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-LayersGos-11.png" style="width: 80%;" /></a> </p>
+</section>
+<section id="the-netlist-tab">
+<span id="id8"></span><h3><a class="toc-backref" href="#id48" role="doc-backlink">The Netlist Tab</a><a class="headerlink" href="#the-netlist-tab" title="Permalink to this heading">¶</a></h3>
+<p>The <em>Netlist</em> tab shows the list of nets… By default the tab is not
+<em>synched</em> with the displayed Cell. To see the nets you must check the
+<strong>Sync Netlist</strong> checkbox. You can narrow the set of displayed nets by
+using the filter pattern (supports regular expressions).</p>
+<p>A very useful feature is to enable the <strong>Sync Selection</strong>, which will
+automatically select all the components of the selected net(s). You can
+select multiple nets. In the figure the net <code class="docutils literal notranslate"><span class="pre">auxsc35</span></code> is selected and
+is highlighted in the <em>Viewer</em>.</p>
+<p> <a class="reference internal" href="../../_images/Controller-Netlist-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Netlist-11.png" style="width: 80%;" /></a> 
+ <a class="reference internal" href="../../_images/Viewer-Netlist-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Viewer-Netlist-11.png" style="width: 80%;" /></a>     </p>
+</section>
+<section id="the-selection-tab">
+<span id="id9"></span><h3><a class="toc-backref" href="#id49" role="doc-backlink">The Selection Tab</a><a class="headerlink" href="#the-selection-tab" title="Permalink to this heading">¶</a></h3>
+<p>The <em>Selection</em> tab lists all the components currently selected. They
+can be filtered thanks to the filter pattern.</p>
+<p>Used in conjunction with the <em>Netlist</em> <strong>Sync Selection</strong> you will all see
+all the components part of <em>net</em>.</p>
+<p>In this list, you can toggle individually the selection of component by
+pressing the <code class="docutils literal notranslate"><span class="pre">t</span></code> key. When unselected in this way a component is not
+removed from the the selection list but instead displayed in red italic.
+To see where a component is you may make it blink by repeatedly press
+the <code class="docutils literal notranslate"><span class="pre">t</span></code> key…</p>
+<p> <a class="reference internal" href="../../_images/Controller-Selection-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Selection-11.png" style="width: 80%;" /></a> </p>
+</section>
+<section id="the-inspector-tab">
+<span id="id10"></span><h3><a class="toc-backref" href="#id50" role="doc-backlink">The Inspector Tab</a><a class="headerlink" href="#the-inspector-tab" title="Permalink to this heading">¶</a></h3>
+<p>This tab is very useful, but mostly for <span class="sc">Coriolis</span> developpers. It allows
+to browse through the live DataBase. The <em>Inspector</em> provides three entry points:</p>
+<ul class="simple">
+<li><p><strong>DataBase</strong>: Starts from the whole <span class="sc">Hurricane</span> DataBase.</p></li>
+<li><p><strong>Cell</strong>: Inspects the currently loaded Cell.</p></li>
+<li><p><strong>Selection</strong>: Inspects the object currently highlighted in the <em>Selection</em> tab.</p></li>
+</ul>
+<p>Once an entry point has been activated, you may recursively expore all
+its fields using the right/left arrows.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Do not put your fingers in the socket:</em> when inspecting
+anything, do not modify the DataBase. If any object under inspection
+is deleted, you will crash the application…</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Implementation Detail:</em> the inspector support is done with
+<code class="docutils literal notranslate"><span class="pre">Slot</span></code>, <code class="docutils literal notranslate"><span class="pre">Record</span></code> and <code class="docutils literal notranslate"><span class="pre">getString()</span></code>.</p>
+</div>
+<p> <a class="reference internal" href="../../_images/Controller-Inspector-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Inspector-11.png" style="width: 80%;" /></a> 
+ <a class="reference internal" href="../../_images/Controller-Inspector-21.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Inspector-21.png" style="width: 80%;" /></a> 
+ <a class="reference internal" href="../../_images/Controller-Inspector-31.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Inspector-31.png" style="width: 80%;" /></a> </p>
+</section>
+<section id="the-settings-tab">
+<span id="id11"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">The Settings Tab</a><a class="headerlink" href="#the-settings-tab" title="Permalink to this heading">¶</a></h3>
+<p>Here comes the description of the <em>Settings</em> tab.</p>
+<p> <a class="reference internal" href="../../_images/Controller-Settings-11.png"><img alt="Controller Basic Snapshot" class="align-middle" src="../../_images/Controller-Settings-11.png" style="width: 80%;" /></a> </p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Coriolis</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html">Abstract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#credits-license">Credits &amp; License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#complete-design-flow-examples">Complete Design Flow &amp; Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users-guide/UsersGuide.html#cgt-the-graphical-interface">CGT - The Graphical Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hurricane/hurricane.html">Hurricane</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Jean-Paul Chaput & Al..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/pages/users-guide_0/UsersGuide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
