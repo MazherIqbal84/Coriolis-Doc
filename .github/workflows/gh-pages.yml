@@ -24,7 +24,7 @@ jobs:
           message: "Starting deployment of preview ⏳..."
 
       - name: Set domain
-        run: echo "DOMAIN=lip6.github.io" >> $GITHUB_ENV # TODO set your custom domain
+        run: echo "DOMAIN=mazheriqbal84.github.io" >> $GITHUB_ENV # TODO set your custom domain
         # If you're using the default github pages url, use this instead:
         # run: echo "DOMAIN=${{ github.actor }}.github.io" >> $GITHUB_ENV
 
