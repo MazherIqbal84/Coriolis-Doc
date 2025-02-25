@@ -95,6 +95,7 @@ build-frontend = "build"
 before-all = '''
  yum -y install epel-release
  yum repolist
+ pip install "pillow==10.0.1"
  yum install -y \
  qt5-qtbase-devel qt5-qtsvg-devel \
  rapidjson-devel bison flex doxygen bzip2-devel flex-devel \
