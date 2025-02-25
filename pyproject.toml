@@ -1,52 +1,15 @@
-# SPDX-FileCopyrightText: 2021 The meson-python developers
-#
-# SPDX-License-Identifier: GPL
-
-[build-system]
-build-backend = 'mesonpy'
-backend-path = ['.']
-requires = [
-  'meson >= 0.63.3; python_version < "3.12"',
-  'meson >= 1.2.3; python_version >= "3.12"',
-  'pyproject-metadata >= 0.7.1',
-  'tomli >= 1.0.0; python_version < "3.11"',
-  "pdm-backend", 
-  "meson @ git+https://github.com/robtaylor/meson@homebrew-fixes",  
-  "ninja", 
-  "meson-python == 0.13.2", 
-  "cmake", 
-  "dunamai",
-]
-
 [project]
-name = "coriolis"
+name = "coriolis-eda"
+dynamic = ["version"]
 description = "Place and Route for semiconductors"
-readme = "README.rst"
 authors = [ { name = "Coriolis EDA Contributers" } ]
-dynamic = []
+readme = "README.rst"
+homepage = "https://github.com/lip6/coriolis"
+repository = "https://github.com/lip6/coriolis"
 requires-python = ">= 3.8.1"
-dependencies = []
-maintainers = [
-  { name = 'Mazher Iqbal', email = 'mazher.iqbal@lip6.fr' },
+packages = [
+  { include = "coriolis"},
 ]
-
-version = "2.5.5"
-keywords = [
-    "packaging",
-    "dependency",
-    "workflow",
-]
-classifiers = [
-    "Topic :: Software Development :: Build Tools",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-]
-
-[tool.setuptools.packages.find]
-where = ["."] 
 include = [
   "COPYRIGHT.rst",
   "LICENSE.rst",
@@ -60,7 +23,6 @@ include = [
   "coloquinte",
   "crlcore",
   "cumulus",
-  "equinox",
   "etesian",
   "flute",
   "foehn",
@@ -72,22 +34,15 @@ include = [
   "oroshi",
   "pdm.lock",
   "pyproject.toml",
-  "solstice",
   "stratus1",
   "tramontana",
   "tutorial",
   "unicorn",
   "unittests",
 ]
-
-
-[project.license]
-text = "GPL"
-
-[project.urls]
-homepage = "https://github.com/lip6/coriolis"
-repository = "https://github.com/lip6/coriolis"
-
+[build-system]
+requires = ["setuptools", "pdm-backend", "meson @ git+https://github.com/robtaylor/meson@homebrew-fixes",  "ninja", "meson-python == 0.13.2", "cmake", "dunamai"]
+build-backend = "mesonpy"
 
 [tool.cibuildwheel.linux]
 skip = ["cp36-*", "cp37-*", "pp*"]
@@ -131,7 +86,6 @@ dev = [
 test = [
     "pytest>=7.4.2",
 ]
-
 
 
 [tool.pdm]
