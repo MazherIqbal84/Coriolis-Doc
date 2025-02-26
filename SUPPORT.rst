@@ -25,3 +25,4 @@ On some distributions, you may need to replace the lines in bootstrap/cmake_modu
 to ::
     find_package(Qt5 COMPONENTS REQUIRED Core)
 
+
