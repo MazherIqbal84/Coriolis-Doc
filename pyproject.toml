@@ -3,7 +3,7 @@ name = "coriolis-eda"
 dynamic = ["version"]
 description = "Place and Route for semiconductors"
 authors = [ { name = "Coriolis EDA Contributers" } ]
-readme = "README.rst"
+readme = "README.md"
 homepage = "https://github.com/lip6/coriolis"
 repository = "https://github.com/lip6/coriolis"
 requires-python = ">= 3.8.1"
