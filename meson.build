@@ -1,5 +1,5 @@
 project(
-  'coriolis',
+  'coriolis-eda',
   'c','cpp',
    version:  run_command('_build_utils/version.py').stdout().strip(),
    meson_version: '>= 1.2.0',
@@ -38,8 +38,9 @@ py_mod_deps = declare_dependency(dependencies: py_deps, compile_args: '-D__PYTHO
 qt = import('qt5', disabler: true)
 
 sed = find_program('sed',  disabler: true)
-docdir = join_paths(get_option('datadir'), 'doc')
+docdir = join_paths(get_option('datadir'), 'doc', 'coriolis')
 htmldir = join_paths(docdir,  'html')
+pdfdir = join_paths(htmldir,  'pdfs')
 docsiteurl = get_option('docs-siteurl')
 
 if not get_option('only-docs')
@@ -108,8 +109,6 @@ subdir('etesian')
 subdir('anabatic')
 subdir('katana')
 subdir('tramontana')
-subdir('equinox')
-subdir('solstice')
 subdir('oroshi')
 subdir('karakaze')
 subdir('bora')
