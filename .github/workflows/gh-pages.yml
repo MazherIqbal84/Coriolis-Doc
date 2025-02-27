@@ -44,7 +44,7 @@ jobs:
       - name: Build website
         run: |
           sudo apt update
-          sudo apt install -y texlive-fonts-extra graphviz doxygen doxygen-latex python3-docutils qtbase5-dev libqt5svg5-dev python3-lxml
+          sudo apt install -y texlive-fonts-extra graphviz doxygen doxygen-latex python3-docutils qtbase5-dev libqt5svg5-dev
           pdm sync -d --no-self
           pdm run meson setup --prefix=/home/runner/work/install -D docs=true -D only-docs=true -D docs-siteurl=$BASE_URL builddir
           pdm run meson install -C builddir
@@ -55,7 +55,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /home/runner/work/install/share/doc/html
-          cname: ${{ env.DOMAIN }} # TODO you need to set this if you're using a custom domain. Otherwise you can remove it.
+          #cname: ${{ env.DOMAIN }} # TODO you need to set this if you're using a custom domain. Otherwise you can remove it.
 
       - name: Set base URL for preview if PR
         if: github.ref != 'refs/heads/main'
@@ -73,7 +73,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /home/runner/work/install/share/doc/html
-          destination_dir: ${{ env.PR_PATH }} # TODO you need to set this if you're using a custom domain. Otherwise you can remove it.
+         # destination_dir: ${{ env.PR_PATH }} # TODO you need to set this if you're using a custom domain. Otherwise you can remove it.
 
       - name: Update comment
         uses: hasura/comment-progress@v2.2.0
